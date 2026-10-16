@@ -73,7 +73,8 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .who .r{font-size:.8rem;color:var(--muted)}
 .step{display:flex;align-items:center;gap:4px}
 .step button{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:600 1.1rem var(--f-mono);cursor:pointer}
-.step input{width:3.2ch;text-align:center;font:600 1rem var(--f-mono);border:0;background:transparent;color:var(--ink)}
+.step input{width:4.5ch;padding:0;text-align:center;font:600 1rem var(--f-mono);border:0;background:transparent;color:var(--ink);-moz-appearance:textfield;appearance:textfield}
+.step input::-webkit-outer-spin-button,.step input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .total-line{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:10px;font-size:.9rem;color:var(--muted)}
 .total-line b{color:var(--ink)}
 
@@ -153,13 +154,14 @@ const LEVELS=[
   {k:"SM",name:"Senior Manager",salary:180000},
   {k:"M",name:"Manager",salary:140000},
   {k:"SC",name:"Senior Consultant",salary:100000},
+  {k:"C",name:"Consultant",salary:80000},
 ];
 const KEY="callkosten.v1";
 const eur=new Intl.NumberFormat("en-IE",{style:"currency",currency:"EUR"});
 const eur0=new Intl.NumberFormat("en-IE",{style:"currency",currency:"EUR",maximumFractionDigits:0});
 const $=id=>document.getElementById(id);
 
-let st={mode:"retro",counts:{MD:0,GD:1,D:1,SM:0,M:2,SC:3},minutes:60,days:220,hpd:9,factor:1.3,
+let st={mode:"retro",counts:{MD:0,GD:1,D:1,SM:0,M:2,SC:3,C:0},minutes:60,days:220,hpd:9,factor:1.3,
   salaries:Object.fromEntries(LEVELS.map(l=>[l.k,l.salary])),
   live:{running:false,acc:0,secs:0,last:0}};
 try{const s=JSON.parse(localStorage.getItem(KEY));if(s)st={...st,...s,counts:{...st.counts,...s.counts},salaries:{...st.salaries,...s.salaries},live:{...st.live,...s.live}}}catch(e){}
